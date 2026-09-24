@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Gʻayratjon — Motion designer &amp; Video editor · gayrat.motion</title>
+  <meta name="description" content="Gʻayratjon (gayrat.motion) — motion dizayner va video montajchi. Motion, Motion Reels va motion bilan video montaj: brendingiz uchun harakatlanuvchi hikoyalar.">
+  <meta name="theme-color" content="#000000">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Gʻayratjon — Motion designer & Video editor">
+  <meta property="og:description" content="Motion · Motion Reels · Video Edit [with motion]. Kadrlarni harakatga keltiraman.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23000'/%3E%3Cpath d='M16 7l9 9-9 9-9-9z' fill='%23EAE4D5'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+
+<a class="skip" href="#main">Asosiy qismga oʻtish</a>
+
+<!-- Preloader: timecode counter -->
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader__inner">
+    <span class="loader__tc" id="loaderTc">00:00:00:00</span>
+    <span class="loader__pct"><span id="loaderPct">0</span>%</span>
+  </div>
+  <div class="loader__bar"><span id="loaderBar"></span></div>
+</div>
+
+<!-- Cursor (rico.supply style: spring dot → labelled pill) -->
+<div class="cursor" id="cursor" aria-hidden="true">
+  <div class="cursor__body"><span class="cursor__label"></span></div>
+</div>
+
+<div class="grain" aria-hidden="true"></div>
+<div class="progress" aria-hidden="true"><span id="progress"></span></div>
+
+<!-- Header -->
+<header class="nav" id="nav">
+  <a href="#top" class="logo" aria-label="gayrat.motion — bosh sahifa">
+    gayrat<i class="logo__key" aria-hidden="true"></i><span>motion</span>
+  </a>
+  <nav class="nav__links" aria-label="Asosiy menyu">
+    <a href="#works">Ishlar</a>
+    <a href="#services">Xizmatlar</a>
+    <a href="#process">Jarayon</a>
+    <a href="#about">Men haqimda</a>
+  </nav>
+  <a href="#contact" class="btn btn--sm btn--light nav__cta" data-magnetic>Loyiha boshlash</a>
+  <button class="burger" id="burger" aria-label="Menyuni ochish" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
+</header>
+
+<!-- Mobile menu — reuses the reveal animation -->
+<div class="menu reveal" id="menu" data-theme="dark" hidden>
+  <nav aria-label="Mobil menyu">
+    <a class="ae-1" href="#works">Ishlar</a>
+    <a class="ae-2" href="#services">Xizmatlar</a>
+    <a class="ae-3" href="#process">Jarayon</a>
+    <a class="ae-4" href="#about">Men haqimda</a>
+    <a class="ae-5" href="#contact">Aloqa</a>
+  </nav>
+  <p class="menu__foot ae-6"><a href="tel:+998997223230">+998 99 722 32 30</a> · <a href="https://www.instagram.com/gayrat.motion/" target="_blank" rel="noopener">Instagram</a></p>
+</div>
+
+<main id="main">
+
+  <!-- ===== HERO ===== -->
+  <section class="hero reveal" id="top" data-theme="dark">
+    <canvas class="hero__canvas" id="curves" aria-hidden="true"></canvas>
+
+    <div class="hero__content wrap">
+      <p class="eyebrow ae-1"><span class="dot"></span> Motion designer · Video editor — Oʻzbekiston</p>
+      <h1 class="hero__title">
+        <span class="line ae-2">Kadrlarni</span>
+        <span class="line ae-3"><em class="outline">harakatga</em></span>
+        <span class="line ae-4">keltiraman<b class="accent">.</b></span>
+      </h1>
+      <div class="hero__row">
+        <p class="hero__lead ae-5">Motion, Motion Reels va motion bilan video montaj — brendingiz uchun toʻxtatib qoʻymaydigan, eslab qolinadigan harakatlanuvchi hikoyalar.</p>
+        <div class="hero__ctas ae-6">
+          <a href="#works" class="btn btn--light" data-magnetic>Ishlarni koʻrish <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+          <button class="btn btn--ghost" data-open-reel data-magnetic data-cursor="Play ▶">
+            <svg viewBox="0 0 24 24" aria-hidden="true" class="fill"><path d="M8 5v14l11-7z"/></svg> Showreel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="hud wrap ae-7 fadeIn" aria-hidden="true">
+      <span class="hud__rec"><i></i> REC <b id="tc">00:00:00:00</b></span>
+      <span class="hud__scroll">Scroll <i></i></span>
+      <span class="hud__spec">24 FPS · 4K · 9:16</span>
+    </div>
+  </section>
+
+  <!-- ===== MARQUEE ===== -->
+  <section class="marquee" data-theme="light" aria-label="Xizmatlar roʻyxati">
+    <div class="marquee__track" id="marquee">
+      <div class="marquee__group">
+        <span>Motion</span><i aria-hidden="true">◆</i>
+        <span class="outline-dark">Motion Reels</span><i aria-hidden="true">◆</i>
+        <span>Video Edit</span><i aria-hidden="true">◆</i>
+        <span class="outline-dark">with motion</span><i aria-hidden="true">◆</i>
+      </div>
+      <div class="marquee__group" aria-hidden="true">
+        <span>Motion</span><i>◆</i>
+        <span class="outline-dark">Motion Reels</span><i>◆</i>
+        <span>Video Edit</span><i>◆</i>
+        <span class="outline-dark">with motion</span><i>◆</i>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SHOWREEL (scroll-zoom composition) ===== -->
+  <section class="reel" id="reel" data-theme="light">
+    <div class="reel__sticky">
+      <div class="reel__head reveal wrap">
+        <p class="eyebrow eyebrow--dark ae-1"><span class="dot"></span> Showreel 2026</p>
+        <h2 class="h2 ae-2">Bir daqiqada — <em class="outline-dark">hammasi</em>.</h2>
+      </div>
+      <button class="reel__frame" id="reelFrame" data-theme="dark" data-open-reel data-cursor="Play ▶" aria-label="Showreelni koʻrish">
+        <span class="comp" aria-hidden="true">
+          <span class="comp__bar">
+            <span>Comp 1 · 1920×1080 · 24 fps</span>
+            <span class="comp__live"><i></i> Preview</span>
+          </span>
+          <span class="comp__safe"></span>
+          <span class="comp__cross"></span>
+          <span class="comp__word comp__word--a">SHOW</span>
+          <span class="comp__word comp__word--b">REEL</span>
+          <span class="comp__ring"></span>
+          <span class="comp__play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+          <span class="comp__timeline"><span class="comp__head"></span></span>
+        </span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ===== WORKS (horizontal scroll) ===== -->
+  <section class="works" id="works" data-theme="light">
+    <div class="works__sticky">
+      <div class="works__head wrap reveal">
+        <div>
+          <p class="eyebrow eyebrow--dark ae-1"><span class="dot"></span> Tanlangan ishlar</p>
+          <h2 class="h2 ae-2">Har bir kadr — <em class="outline-dark">oʻylangan</em>.</h2>
+        </div>
+        <p class="works__count ae-3" aria-hidden="true"><b id="workIdx">01</b> / 06</p>
+      </div>
+
+      <!--
+        To use real work: add data-video="assets/works/01.mp4" (and optional data-poster)
+        to a .card — the video replaces the motion composition and plays on hover.
+      -->
+      <div class="works__track" id="worksTrack">
+        <a class="card" href="https://www.instagram.com/gayrat.motion/" target="_blank" rel="noopener" data-cursor="Koʻrish ↗">
+          <span class="card__art art-orbit" aria-hidden="true"><i></i><i></i><i></i><b></b></span>
+          <span class="card__meta"><span>01</span><span>Motion Reels</span></span>
+          <span class="card__title">Brend intro<small>9:16 · 0:15</small></span>
+        </a>
+        <a class="card card--dark" data-theme="dark" href="https://www.instagram.com/gayrat.motion/" target="_blank" rel="noopener" data-cursor="Koʻrish ↗">
+          <span class="card__art art-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+          <span class="card__meta"><span>02</span><span>Video Edit</span></span>
+          <span class="card__title">Podkast montaj<small>9:16 · 0:45</small></span>
+        </a>
+        <a class="card" href="https://www.instagram.com/gayrat.motion/" target="_blank" rel="noopener" data-cursor="Koʻrish ↗">
+          <span class="card__art art-type" aria-hidden="true"><span>HARAKAT</span><span>HARAKAT</span><span>HARAKAT</span><span>HARAKAT</span><span>HARAKAT</span></span>
+          <span class="card__meta"><span>03</span><span>Motion</span></span>
+          <span class="card__title">Kinetik tipografiya<small>9:16 · 0:20</small></span>
+        </a>
+        <a class="card card--stone" href="https://www.instagram.com/gayrat.motion/" target="_blank" rel="noopener" data-cursor="Koʻrish ↗">
+          <span class="card__art art-grid" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+          <span class="card__meta"><span>04</span><span>Motion</span></span>
+          <span class="card__title">Logo reveal<small>1:1 · 0:08</small></span>
+        </a>
+        <a class="card card--dark" data-theme="dark" href="https://www.instagram.com/gayrat.motion/" target="_blank" rel="noopener" data-cursor="Koʻrish ↗">
+          <span class="card__art art-ripple" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          <span class="card__meta"><span>05</span><span>Motion Reels</span></span>
+          <span class="card__title">Mahsulot reklamasi<small>9:16 · 0:30</small></span>
+        </a>
+        <a class="card" href="https://www.instagram.com/gayrat.motion/" target="_blank" rel="noopener" data-cursor="Koʻrish ↗">
+          <span class="card__art art-split" aria-hidden="true"><span>ED</span><span>IT</span></span>
+          <span class="card__meta"><span>06</span><span>Video Edit</span></span>
+          <span class="card__title">Explainer video<small>16:9 · 1:10</small></span>
+        </a>
+        <a class="card card--cta" data-theme="dark" href="#contact" data-cursor="Boshlash →">
+          <span class="card__cta">Keyingi ish — <em>sizniki</em>.</span>
+          <span class="card__meta"><span>07</span><span>Band qilish</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SERVICES ===== -->
+  <section class="services" id="services" data-theme="light">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow eyebrow--dark ae-1"><span class="dot"></span> Xizmatlar</p>
+        <h2 class="h2 ae-2">Nima qila olaman?</h2>
+      </div>
+
+      <ol class="svc">
+        <li class="svc__row reveal" data-cursor="Buyurtma →">
+          <a href="#contact" class="svc__link" data-theme="dark">
+            <span class="svc__no ae-1">01</span>
+            <span class="svc__name ae-2">Motion</span>
+            <span class="svc__desc ae-3">Logo animatsiya, brend intro, kinetik tipografiya va 2D motion grafika — gʻoyadan tayyor kadrgacha.</span>
+            <span class="svc__arrow ae-4" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+          </a>
+        </li>
+        <li class="svc__row reveal" data-cursor="Buyurtma →">
+          <a href="#contact" class="svc__link" data-theme="dark">
+            <span class="svc__no ae-1">02</span>
+            <span class="svc__name ae-2">Motion Reels</span>
+            <span class="svc__desc ae-3">Instagram Reels, TikTok va Shorts uchun vertikal 9:16 formatdagi, birinchi soniyadanoq ushlab qoladigan videolar.</span>
+            <span class="svc__arrow ae-4" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+          </a>
+        </li>
+        <li class="svc__row reveal" data-cursor="Buyurtma →">
+          <a href="#contact" class="svc__link" data-theme="dark">
+            <span class="svc__no ae-1">03</span>
+            <span class="svc__name ae-2">Video Edit <em>[with motion]</em></span>
+            <span class="svc__desc ae-3">Montaj, rang, ritm va sound — ustiga motion elementlar, titrlar va oʻtishlar bilan jonlantirilgan video.</span>
+            <span class="svc__arrow ae-4" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8"/></svg></span>
+          </a>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===== PROCESS (scroll-scrubbed editing timeline) ===== -->
+  <section class="process" id="process" data-theme="dark">
+    <div class="process__sticky">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow ae-1"><span class="dot"></span> Jarayon</p>
+          <h2 class="h2 ae-2">Brifdan <em class="outline">renderga</em>.</h2>
+        </div>
+
+        <div class="tl reveal" id="timeline">
+          <div class="tl__ruler ae-3" aria-hidden="true">
+            <span>00:00</span><span>00:06</span><span>00:12</span><span>00:18</span><span>00:24</span>
+          </div>
+          <ol class="tl__tracks ae-4">
+            <li class="tl__clip" style="--s:0;--w:25">
+              <span class="tl__no">V1</span>
+              <h3>Brif</h3>
+              <p>Maqsad, auditoriya, format va muddatni aniqlaymiz.</p>
+            </li>
+            <li class="tl__clip" style="--s:25;--w:25">
+              <span class="tl__no">V2</span>
+              <h3>Storyboard</h3>
+              <p>Uslub, kadrlar ketma-ketligi va ritm — birinchi eskizlar.</p>
+            </li>
+            <li class="tl__clip" style="--s:50;--w:25">
+              <span class="tl__no">V3</span>
+              <h3>Animatsiya</h3>
+              <p>Keyframe, easing, sound — har bir harakat oʻz joyida.</p>
+            </li>
+            <li class="tl__clip" style="--s:75;--w:25">
+              <span class="tl__no">V4</span>
+              <h3>Render</h3>
+              <p>Tuzatishlar, yakuniy eksport va kerakli formatlar.</p>
+            </li>
+          </ol>
+          <div class="tl__head" id="playhead" aria-hidden="true"><span id="playTc">00:00:00:00</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section class="about" id="about" data-theme="light">
+    <div class="wrap about__grid">
+      <div class="about__left reveal">
+        <p class="eyebrow eyebrow--dark ae-1"><span class="dot"></span> Men haqimda</p>
+        <h2 class="about__quote ae-2">Salom, men <em>Gʻayratjon</em>. Statik gʻoyalarni <span class="outline-dark">jonli</span> harakatga aylantiraman.</h2>
+      </div>
+      <div class="about__right reveal">
+        <p class="ae-3">Motion dizayn menga shunchaki “chiroyli animatsiya” emas — bu tomoshabin diqqatini boshqarish sanʼati. Har bir easing, har bir kadr va har bir soniya bitta maqsadga xizmat qiladi: xabaringiz eslab qolinsin.</p>
+        <p class="ae-4">Brendlar, bloggerlar va bizneslar bilan Reels, reklama va brend videolari ustida ishlayman — gʻoyadan yakuniy renderga qadar.</p>
+        <ul class="chips ae-5" aria-label="Formatlar">
+          <li>Reels</li><li>TikTok</li><li>Shorts</li><li>Reklama</li><li>Brend intro</li><li>Logo animatsiya</li>
+        </ul>
+        <dl class="facts ae-6">
+          <div><dt>24</dt><dd>kadr / soniya</dd></div>
+          <div><dt>9:16</dt><dd>vertikal format</dd></div>
+          <div><dt>4K</dt><dd>eksport sifati</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section class="contact reveal" id="contact" data-theme="dark">
+    <div class="wrap">
+      <p class="eyebrow ae-1"><span class="dot"></span> Aloqa</p>
+      <h2 class="contact__title">
+        <span class="line ae-2">Keling, birga</span>
+        <span class="line ae-3"><em class="outline">harakatga</em></span>
+        <span class="line ae-4">keltiramiz<b class="accent">.</b></span>
+      </h2>
+      <div class="contact__row ae-5">
+        <a href="tel:+998997223230" class="contact__phone" data-cursor="Qoʻngʻiroq ☎">+998 99 722 32 30</a>
+        <div class="contact__btns">
+          <a href="https://www.instagram.com/gayrat.motion/" target="_blank" rel="noopener" class="btn btn--light" data-magnetic>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" class="fill"/></svg>
+            @gayrat.motion
+          </a>
+          <a href="tel:+998997223230" class="btn btn--ghost" data-magnetic>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
+            Qoʻngʻiroq qilish
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer wrap ae-6 fadeIn">
+      <span>© <span id="year">2026</span> Gʻayratjon · gayrat.motion</span>
+      <span class="footer__clock">Toshkent <b id="clock">--:--</b></span>
+      <a href="#top" class="footer__top">Yuqoriga ↑</a>
+    </footer>
+  </section>
+
+</main>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Showreel" hidden>
+  <button class="lightbox__close" id="lbClose" data-cursor="Yopish ✕" aria-label="Yopish">✕</button>
+  <div class="lightbox__stage" data-cursor="Yopish ✕">
+    <!-- Put the reel at assets/showreel.mp4 -->
+    <video id="lbVideo" playsinline controls preload="none" data-cursor="none"></video>
+    <div class="lightbox__empty" id="lbEmpty" data-cursor="none" hidden>
+      <p class="eyebrow"><span class="dot"></span> Showreel</p>
+      <p class="lightbox__msg">Yangi showreel tayyorlanmoqda.<br>Hozircha ishlarni Instagramda koʻring.</p>
+      <a class="btn btn--light" href="https://www.instagram.com/gayrat.motion/" target="_blank" rel="noopener">@gayrat.motion</a>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js" integrity="sha384-jqpi9VmOdhyLoLURgjCn7EpnG9BbnHW57ibIZoeaIU+erWDH3k8fQQg0xH2ySjnw" crossorigin="anonymous" defer></script>
+<script src="js/main.js" defer></script>
+</body>
+</html>
