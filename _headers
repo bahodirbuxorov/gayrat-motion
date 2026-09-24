@@ -7,8 +7,15 @@
 /assets/*
   Cache-Control: public, max-age=604800
 
+# css/js carry ?v=<content hash> (bump.py, run by the pre-commit hook); 1 day cache as a safety net
 /css/*
-  Cache-Control: public, max-age=86400, must-revalidate
+  Cache-Control: public, max-age=86400
 
 /js/*
-  Cache-Control: public, max-age=86400, must-revalidate
+  Cache-Control: public, max-age=86400
+
+/index.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/
+  Cache-Control: public, max-age=0, must-revalidate

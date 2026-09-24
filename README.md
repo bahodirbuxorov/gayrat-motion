@@ -36,3 +36,8 @@ python -m http.server 5510   # open http://127.0.0.1:5510
 - `_headers` (Cloudflare Pages): security headers + cache (assets 7 days, css/js 1 day). `404.html` is served automatically.
 - Lighthouse (2026-09-24, local): SEO 100 · Accessibility 100 · Best Practices 100 · Performance 85
   (mobile throttling; the intro loader and Google Fonts are the main cost).
+
+## Cache busting
+`index.html` loads `css/style.css?v=<hash>` and `js/main.js?v=<hash>`. After editing CSS/JS run
+`python bump.py` (a local `.git/hooks/pre-commit` does it automatically on commit — re-create the hook
+on a fresh clone). Without it, returning visitors can see new HTML with old CSS (broken layout).
