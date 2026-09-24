@@ -26,3 +26,13 @@ python -m http.server 5510   # open http://127.0.0.1:5510
 - Outline text uses `paint-order: stroke fill` with a background-coloured fill (`--fill`) to hide
   Montserrat variable-font contour overlaps — set `--fill` when placing outline text on a new background.
 - `prefers-reduced-motion` disables animation; sticky scroll scenes fall back to plain layout below 861px.
+
+## SEO
+- Domain: **https://gayratmotion.uz** — hard-coded in `index.html` (canonical, OG/Twitter, JSON-LD),
+  `robots.txt`, `sitemap.xml`. If the domain changes: `grep -rl gayratmotion.uz . | xargs sed -i 's#gayratmotion.uz#NEW#g'`.
+- OG image: `assets/og.jpg` (1200×630). Rendered from an HTML template in the hero style; after changing
+  it, bump the filename (e.g. `og-2.jpg`) so Telegram/Facebook refetch.
+- JSON-LD: WebSite + Person + ProfessionalService (3 services). No ratings/reviews — add only real ones.
+- `_headers` (Cloudflare Pages): security headers + cache (assets 7 days, css/js 1 day). `404.html` is served automatically.
+- Lighthouse (2026-09-24, local): SEO 100 · Accessibility 100 · Best Practices 100 · Performance 85
+  (mobile throttling; the intro loader and Google Fonts are the main cost).

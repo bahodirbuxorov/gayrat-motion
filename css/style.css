@@ -122,6 +122,7 @@ em { font-style: italic; }
   transition: transform 1s cubic-bezier(.76, 0, .24, 1);
 }
 .loader.is-done { transform: translate3d(0, -100%, 0); }
+html:not(.js) .loader { display: none; }
 .loader__inner { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; }
 .loader__tc { font-size: clamp(.8rem, 1.2vw, 1rem); letter-spacing: .2em; color: var(--stone); font-variant-numeric: tabular-nums; }
 .loader__pct { font-size: clamp(4rem, 16vw, 14rem); font-weight: 800; line-height: .8; letter-spacing: -.05em; font-variant-numeric: tabular-nums; }
@@ -427,7 +428,7 @@ em { font-style: italic; }
 .card__meta, .card__title { position: relative; z-index: 2; }
 .card__meta { display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; opacity: .7; }
 .card__title { font-size: clamp(1.25rem, 1.6vw, 1.55rem); font-weight: 800; letter-spacing: -.035em; line-height: 1.1; display: flex; flex-direction: column; gap: 6px; }
-.card__title small { font-size: 12px; font-weight: 600; letter-spacing: .12em; opacity: .6; }
+.card__title small { font-size: 12px; font-weight: 600; letter-spacing: .12em; opacity: .75; }
 .card__art { position: absolute; inset: 0; z-index: 1; display: block; transition: transform .8s var(--ease-out); }
 .card:hover .card__art { transform: scale(1.06); }
 .card video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
@@ -500,7 +501,7 @@ em { font-style: italic; }
 .svc__link:hover, .svc__link:focus-visible { color: var(--cream); }
 .svc__link:hover::before, .svc__link:focus-visible::before { clip-path: inset(0 0 0 0 round 18px); }
 .svc__no { font-size: 14px; font-weight: 600; letter-spacing: .1em; opacity: .55; font-variant-numeric: tabular-nums; }
-.svc__name { font-size: clamp(2rem, 5vw, 4.6rem); font-weight: 800; letter-spacing: -.05em; line-height: 1; transition: transform .6s var(--ease-out); }
+.svc__name { display: block; font-size: clamp(2rem, 5vw, 4.6rem); font-weight: 800; letter-spacing: -.05em; line-height: 1; transition: transform .6s var(--ease-out); }
 .svc__name em { display: block; margin-top: .12em; font-size: .42em; font-weight: 400; letter-spacing: -.02em; color: var(--on-light-mute); transition: color .5s; }
 .svc__link:hover .svc__name { transform: translateX(16px); }
 .svc__link:hover .svc__name em { color: var(--stone); }
@@ -580,6 +581,15 @@ em { font-style: italic; }
 .footer b { color: var(--paper); font-weight: 600; font-variant-numeric: tabular-nums; }
 .footer__top { min-height: 44px; display: inline-flex; align-items: center; }
 .footer__top:hover { color: var(--paper); }
+.footer__credit {
+  display: inline-flex; align-items: center; gap: 8px;
+  min-height: 44px; padding: 0 18px; border-radius: 99px;
+  box-shadow: inset 0 0 0 1.5px var(--line-dark);
+  transition: background-color .3s, color .3s, box-shadow .3s, transform .3s var(--ease-out);
+}
+.footer__credit svg { width: 16px; height: 16px; fill: currentColor; }
+.footer__credit:hover { background: var(--cream); color: var(--ink); box-shadow: none; }
+.footer__credit:hover b { color: var(--ink); }
 
 /* =========================================================
    Lightbox
