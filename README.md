@@ -30,8 +30,8 @@ python -m http.server 5510   # open http://127.0.0.1:5510
 ## SEO
 - Domain: **https://gayratmotion.uz** — hard-coded in `index.html` (canonical, OG/Twitter, JSON-LD),
   `robots.txt`, `sitemap.xml`. If the domain changes: `grep -rl gayratmotion.uz . | xargs sed -i 's#gayratmotion.uz#NEW#g'`.
-- OG image: `assets/og.jpg` (1200×630). Rendered from an HTML template in the hero style; after changing
-  it, bump the filename (e.g. `og-2.jpg`) so Telegram/Facebook refetch.
+- OG image: `assets/og-2.jpg` (1200×630, semibold type + portrait). Rendered from an HTML template in the hero style; after changing
+  it, bump the filename (e.g. `og-3.jpg`) so Telegram/Facebook refetch.
 - JSON-LD: WebSite + Person + ProfessionalService (3 services). No ratings/reviews — add only real ones.
 - `_headers` (Cloudflare Pages): security headers + cache (assets 7 days, css/js 1 day). `404.html` is served automatically.
 - Lighthouse (2026-09-24, local): SEO 100 · Accessibility 100 · Best Practices 100 · Performance 85
