@@ -270,8 +270,6 @@
   const nav = $('#nav');
   const reel = $('#reel'), reelFrame = $('#reelFrame'), reelHead = $('.reel__head');
   const services = $('#services');
-  const proc = $('#process'), tl = $('#timeline'), tracks = $('.tl__tracks'), clips = $$('.tl__clip');
-  const playTc = $('#playTc'), playhead = $('#playhead');
   const marquee = $('#marquee');
 
   let mqWidth = 0, mqX = 0, mqDir = -1;
@@ -281,7 +279,6 @@
     vw = innerWidth; vh = innerHeight;
     sizeCanvas();
     mqWidth = marquee.firstElementChild.offsetWidth;
-    tl.style.setProperty('--tl-w', `${tracks.offsetWidth}px`);
   };
 
   const sectionProgress = el => {
@@ -311,17 +308,6 @@
       reelHead.style.opacity = clamp(1 - p * 2.2);
     } else {
       reelHead.style.opacity = '';
-    }
-
-    // process playhead
-    if (desktop) {
-      const p = clamp(sectionProgress(proc) * 1.15 - .05);
-      tl.style.setProperty('--p', p.toFixed(4));
-      playhead.classList.toggle('is-end', p > .82);
-      playTc.textContent = timecode(Math.round(p * 24 * 24));
-      clips.forEach(c => c.classList.toggle('is-on', p * 100 >= parseFloat(c.style.getPropertyValue('--s')) + 2));
-    } else {
-      clips.forEach(c => c.classList.add('is-on'));
     }
   };
 
