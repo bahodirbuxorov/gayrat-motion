@@ -269,26 +269,18 @@
   const progressBar = $('#progress');
   const nav = $('#nav');
   const reel = $('#reel'), reelFrame = $('#reelFrame'), reelHead = $('.reel__head');
-  const works = $('#works'), worksTrack = $('#worksTrack'), workIdx = $('#workIdx');
-  const cards = $$('.card', worksTrack);
+  const services = $('#services');
   const proc = $('#process'), tl = $('#timeline'), tracks = $('.tl__tracks'), clips = $$('.tl__clip');
-  const playTc = $('#playTc');
+  const playTc = $('#playTc'), playhead = $('#playhead');
   const marquee = $('#marquee');
 
-  let worksShift = 0, mqWidth = 0, mqX = 0, mqDir = -1;
+  let mqWidth = 0, mqX = 0, mqDir = -1;
   let lastY = scrollY, navY = scrollY;
 
   const measure = () => {
     vw = innerWidth; vh = innerHeight;
     sizeCanvas();
     mqWidth = marquee.firstElementChild.offsetWidth;
-    if (desktopMq.matches && !reduce) {
-      worksShift = Math.max(0, worksTrack.scrollWidth - vw);
-      works.style.height = `${vh + worksShift}px`;
-    } else {
-      worksShift = 0;
-      works.style.height = '';
-    }
     tl.style.setProperty('--tl-w', `${tracks.offsetWidth}px`);
   };
 
@@ -321,17 +313,11 @@
       reelHead.style.opacity = '';
     }
 
-    // works horizontal
-    if (desktop && worksShift) {
-      const p = sectionProgress(works);
-      worksTrack.style.transform = `translate3d(${-p * worksShift}px, 0, 0)`;
-      workIdx.textContent = pad(Math.min(6, Math.round(p * 5) + 1));
-    }
-
     // process playhead
     if (desktop) {
       const p = clamp(sectionProgress(proc) * 1.15 - .05);
       tl.style.setProperty('--p', p.toFixed(4));
+      playhead.classList.toggle('is-end', p > .82);
       playTc.textContent = timecode(Math.round(p * 24 * 24));
       clips.forEach(c => c.classList.toggle('is-on', p * 100 >= parseFloat(c.style.getPropertyValue('--s')) + 2));
     } else {
@@ -377,22 +363,6 @@
   };
 
   /* ---------------------------------------------------------
-     Works — optional real videos, play only when visible
-     --------------------------------------------------------- */
-  cards.forEach(card => {
-    const src = card.dataset.video;
-    if (!src) return;
-    const v = document.createElement('video');
-    Object.assign(v, { src, muted: true, loop: true, playsInline: true, preload: 'metadata' });
-    if (card.dataset.poster) v.poster = card.dataset.poster;
-    const art = $('.card__art', card);
-    art ? art.replaceWith(v) : card.prepend(v);
-    card.addEventListener('mouseenter', () => v.play().catch(() => {}));
-    card.addEventListener('mouseleave', () => v.pause());
-  });
-  new IntersectionObserver(([e]) => works.classList.toggle('is-playing', e.isIntersecting && !reduce)).observe(works);
-
-  /* ---------------------------------------------------------
      Menu
      --------------------------------------------------------- */
   const burger = $('#burger'), menu = $('#menu');
@@ -426,17 +396,17 @@
   });
 
   /* ---------------------------------------------------------
-     Lightbox (showreel)
+     Lightbox (showreel + service videos)
      --------------------------------------------------------- */
   const lb = $('#lightbox'), lbVideo = $('#lbVideo'), lbEmpty = $('#lbEmpty'), lbClose = $('#lbClose');
   let lastFocus = null;
   const REEL_SRC = 'assets/showreel.mp4';
 
-  const openReel = () => {
+  const openReel = (src = REEL_SRC) => {
     lastFocus = document.activeElement;
     lb.hidden = false;
     lbEmpty.hidden = true; lbVideo.hidden = false;
-    lbVideo.src = REEL_SRC;
+    lbVideo.src = src;
     lbVideo.play().catch(() => {});
     lockScroll(true);
     requestAnimationFrame(() => requestAnimationFrame(() => lb.classList.add('is-open')));
@@ -450,7 +420,7 @@
     if (lastFocus) lastFocus.focus();
   };
   lbVideo.addEventListener('error', () => { lbVideo.hidden = true; lbEmpty.hidden = false; });
-  $$('[data-open-reel]').forEach(b => b.addEventListener('click', openReel));
+  $$('[data-open-reel]').forEach(b => b.addEventListener('click', () => openReel()));
   lbClose.addEventListener('click', closeReel);
   lb.addEventListener('click', e => { if (e.target === lb || e.target.classList.contains('lightbox__stage')) closeReel(); });
   document.addEventListener('keydown', e => {
@@ -460,12 +430,38 @@
   });
 
   /* ---------------------------------------------------------
+     Service videos — data-video on a .media replaces the CSS
+     placeholder: preview on hover (in view on touch), open on click
+     --------------------------------------------------------- */
+  const previewIO = new IntersectionObserver(entries => {
+    entries.forEach(e => { const v = e.target.querySelector('video'); if (v) e.isIntersecting ? v.play().catch(() => {}) : v.pause(); });
+  }, { threshold: .6 });
+
+  $$('.media[data-video]').forEach(m => {
+    const src = m.dataset.video;
+    const v = document.createElement('video');
+    Object.assign(v, { src, muted: true, loop: true, playsInline: true, preload: 'metadata' });
+    v.setAttribute('aria-hidden', 'true');
+    if (m.dataset.poster) v.poster = m.dataset.poster;
+    const art = $('.card__art', m);
+    art ? art.replaceWith(v) : m.prepend(v);
+    if (finePointer) {
+      m.addEventListener('mouseenter', () => v.play().catch(() => {}));
+      m.addEventListener('mouseleave', () => v.pause());
+    } else if (!reduce) {
+      previewIO.observe(m);
+    }
+    m.addEventListener('click', e => { e.preventDefault(); openReel(src); });
+  });
+  new IntersectionObserver(([e]) => services.classList.toggle('is-playing', e.isIntersecting && !reduce)).observe(services);
+
+  /* ---------------------------------------------------------
      Init
      --------------------------------------------------------- */
   let resizeT;
   addEventListener('resize', () => { clearTimeout(resizeT); resizeT = setTimeout(() => { measure(); onScroll(); }, 120); });
   desktopMq.addEventListener('change', () => {
-    [reelFrame, worksTrack].forEach(el => el.removeAttribute('style'));
+    reelFrame.removeAttribute('style');
     measure(); onScroll();
   });
 
